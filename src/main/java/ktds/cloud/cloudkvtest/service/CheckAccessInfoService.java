@@ -84,20 +84,20 @@ public class CheckAccessInfoService {
         return os;
     }
 
-    public static String getWebType(HttpServletRequest request) {
+    public static String getDevice(HttpServletRequest request) {
         String filter = "iphone|ipod|android|windows ce|blackberry|symbian|windows phone|webos|opera mini|opera mobi|polaris|iemobile|lgtelecom|nokia|sonyericsson|lg|samsung";
         String filters[] = filter.split("\\|");
-        String webType = "";
+        String device = "";
 
         for(String tmp : filters){
             if ( request.getHeader("User-Agent").toLowerCase().indexOf(tmp) != -1) {
-                webType = "MOBILE";
+                device = "MOBILE";
                 break;
             } else {
-                webType = "PC";
+                device = "PC";
             }
         }
-        return webType;
+        return device;
 
     }
 

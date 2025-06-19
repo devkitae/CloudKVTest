@@ -1,8 +1,16 @@
+#?? ??
 spring:
   application:
     name: CloudKVTest
+
+#Thymeleaf ??
 thymeleaf:
   prefix=classpath: templates/
   suffix: .html
   check-template-location: true
   cache: false
+
+#logging ??
+logging:
+  level:
+    root: info

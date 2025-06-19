@@ -1,9 +1,14 @@
 package ktds.cloud.cloudkvtest.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
+import ktds.cloud.cloudkvtest.entity.AccessInfo;
 import ktds.cloud.cloudkvtest.service.CheckAccessInfoService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,14 +17,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class CheckAccessInfo {
+
     private final CheckAccessInfoService checkAccessInfoService;
 
-    @RequestMapping("/accessinfo")
-    public String checkAccessInfo(HttpServletRequest request) throws Exception  {
-        String ip = CheckAccessInfoService.getIp(request);
+    @GetMapping("/accessinfo")
+    public AccessInfo checkAccessInfo(HttpServletRequest request) throws Exception  {
 
-        return ip;
+        AccessInfo accessInfo = AccessInfo.builder()
+            .ip(checkAccessInfoService.getIp(request))
+            .os(checkAccessInfoService.getOs(request))
+            .browser(checkAccessInfoService.getBrowser(request))
+            .device(checkAccessInfoService.getDevice(request))
+            .build();
+
+        return accessInfo;
     }
-
 
 }
